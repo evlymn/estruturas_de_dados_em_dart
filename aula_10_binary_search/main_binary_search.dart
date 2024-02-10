@@ -1,13 +1,19 @@
 import 'dart:io';
 import '../cronos.dart';
+import 'list_Item.dart';
+import 'simple_binary_search.dart';
 
 void main() {
-  List<int> list = [];
+
+  List<ListItem> list = [];
+  List<int> listInt = [];
 
   var startTime = Cronos.milliseconds;
-  for (int i = 0; i < 2000000000; i++) {
-    list.add(i);
+  for (int i = 0; i < 10; i++) {
+    listInt.add(i);
+    list.add(ListItem(i, i.toString()));
   }
+
   var endTime = Cronos.milliseconds;
   var totalTime = endTime - startTime;
   var seconds = Cronos.seconds(totalTime);
@@ -19,11 +25,11 @@ void main() {
   print('searching for $search in list');
   startTime = Cronos.milliseconds;
 
-
   bool found = false;
   int start = 0;
   int end = list.length - 1;
   int count = 0;
+
 
   // Binary search algorithm implementation
   // The algorithm compares the search value with the middle element of the list
@@ -36,10 +42,10 @@ void main() {
   while (start <= end) {
     count++;
     int middle = (start + end) ~/ 2;
-    if (list[middle] == search) {
+    if (listInt[middle] == search) {
       found = true;
       break;
-    } else if (list[middle] < search!) {
+    } else if (listInt[middle] < search!) {
       start = middle + 1;
     } else {
       end = middle - 1;
@@ -52,14 +58,22 @@ void main() {
   print(
       'Time to search ${list.length} elements into a List<int>: ${endTime - startTime} ms / ${Cronos.seconds(endTime - startTime)} seconds}');
 
-
   if (!found) {
     print("$search not found in list");
     print('$count iterations');
   } else {
-    print("$search found in list /n",);
+    print(
+      "$search found in list /n",
+    );
     print(count == 1
         ? 'The number was found in the first iteration'
         : 'The number was found in $count iterations');
   }
+
+
+
+  int index = SimpleBinarySearch.binarySearch<ListItem, String>(
+      list, search.toString(), (a, b) => a.value.compareTo(b));
+
+  print("${list[index].toString()} found in list");
 }
