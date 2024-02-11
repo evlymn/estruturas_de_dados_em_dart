@@ -1,5 +1,6 @@
 import 'dart:math';
 import '../cronos.dart';
+import 'simple_heap_sort.dart';
 
 void main() {
   List<int> list = [];
@@ -8,27 +9,29 @@ void main() {
   for (int i = 0; i < totalItems; i++) {
     list.add(Random().nextInt(totalItems));
   }
-  // print("Original list: $list");
+  print("Original list: $list");
 
   var startTime = Cronos.milliseconds;
 
+  /// Sort the list using the SimpleHeapSort class
+  SimpleHeapSort.sort(list, (int a, int b) => a.compareTo(b));
   // Heap sort algorithm implementation
   // The algorithm builds a heap from the list and then repeatedly extracts the largest element from the heap and adds it to the sorted list
   // The algorithm is efficient for large lists
   // It has a time complexity of O(n log n)
-  for (int i = list.length ~/ 2 - 1; i >= 0; i--) {
-    applyHeap(list, list.length, i);
-  }
+  // for (int i = list.length ~/ 2 - 1; i >= 0; i--) {
+  //   applyHeap(list, list.length, i);
+  // }
 
   // Swap the first and last elements of the list and apply the heap again
   // Repeat this process until the list is sorted
   // The time complexity of the function is O(n log n)
-  for (int i = list.length - 1; i > 0; i--) {
-    int temp = list[0];
-    list[0] = list[i];
-    list[i] = temp;
-    applyHeap(list, i, 0);
-  }
+  // for (int i = list.length - 1; i > 0; i--) {
+  //   int temp = list[0];
+  //   list[0] = list[i];
+  //   list[i] = temp;
+  //   applyHeap(list, i, 0);
+  // }
 
   var endTime = Cronos.milliseconds;
 
