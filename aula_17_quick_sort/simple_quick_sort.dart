@@ -13,7 +13,7 @@ class SimpleQuickSort {
   static void _quickSort(List<int> list, int left, int right) {
     if (left < right) {
       int pivotIndex = _partition(list, left, right);
-      _quickSort(list, left, pivotIndex - 1);
+      _quickSort(list, left, pivotIndex);
       _quickSort(list, pivotIndex + 1, right);
     }
   }
